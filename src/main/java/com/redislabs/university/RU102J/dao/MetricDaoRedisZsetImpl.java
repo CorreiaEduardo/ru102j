@@ -51,6 +51,10 @@ public class MetricDaoRedisZsetImpl implements MetricDao {
         // START Challenge #2
         String metricKey = RedisSchema.getDayMetricKey(siteId, unit, dateTime);
         Integer minuteOfDay = getMinuteOfDay(dateTime);
+//        String member = String.format(Locale.ENGLISH, "%.1f:%d", value, minuteOfDay);
+        String member = new MeasurementMinute(value, minuteOfDay).toString();
+
+        jedis.zadd(metricKey, minuteOfDay, member);
         // END Challenge #2
     }
 
