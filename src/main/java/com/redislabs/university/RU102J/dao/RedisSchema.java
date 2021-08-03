@@ -92,4 +92,15 @@ public class RedisSchema {
     static String getTSKey(Long siteId, MetricUnit unit) {
         return KeyHelper.getKey("sites:ts:" + String.valueOf(siteId) + ":" + unit.toString());
     }
+
+    // Challenge #7
+    // limiter:[windowSize]:[name]:[maxHits]
+    // Redis type: sorted set
+    static String getSlidingWindowRateLimiterKey(Long windowSize, String name,
+                                    long maxHits) {
+        return KeyHelper.getKey("limiter:" +
+                String.valueOf(windowSize) + ":" +
+                name + ":" +
+                String.valueOf(maxHits));
+    }
 }
